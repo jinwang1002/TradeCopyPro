@@ -30,38 +30,49 @@ export function MainLayout({ children }: MainLayoutProps) {
   const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
-  const navigation = [
-    {
-      name: "Dashboard",
-      href: "/dashboard",
-      icon: LayoutDashboard,
-      active: location === "/dashboard",
-    },
-    {
-      name: "Providers",
-      href: "/providers",
-      icon: Users,
-      active: location.startsWith("/providers"),
-    },
-    {
-      name: "Accounts",
-      href: "/accounts",
-      icon: BarChart2,
-      active: location === "/accounts" || location.startsWith("/trade-accounts"),
-    },
-    {
-      name: "Subscriptions",
-      href: "/subscriptions",
-      icon: RefreshCw,
-      active: location === "/subscriptions",
-    },
-    {
-      name: "Profile",
-      href: "/profile",
-      icon: User,
-      active: location === "/profile",
-    },
-  ];
+  // Different navigation items based on user role
+  const getNavigation = () => {
+    const baseNavItems = [
+      {
+        name: "Dashboard",
+        href: "/dashboard",
+        icon: LayoutDashboard,
+        active: location === "/dashboard",
+      },
+      {
+        name: "Providers",
+        href: "/providers",
+        icon: Users,
+        active: location.startsWith("/providers"),
+      },
+      {
+        name: "Accounts",
+        href: "/accounts",
+        icon: BarChart2,
+        active: location === "/accounts" || location.startsWith("/trade-accounts"),
+      },
+      {
+        name: "Profile",
+        href: "/profile",
+        icon: User,
+        active: location === "/profile",
+      },
+    ];
+    
+    // Only add Subscriptions link for regular subscribers
+    if (user?.role !== 'provider') {
+      baseNavItems.splice(3, 0, {
+        name: "Subscriptions",
+        href: "/subscriptions",
+        icon: RefreshCw,
+        active: location === "/subscriptions",
+      });
+    }
+    
+    return baseNavItems;
+  };
+
+  const navigation = getNavigation();
 
   const handleLogout = () => {
     logoutMutation.mutate();

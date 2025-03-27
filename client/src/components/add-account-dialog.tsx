@@ -40,9 +40,10 @@ export function AddAccountDialog({ open, onOpenChange, isProvider }: AddAccountD
 
   // Use correct schema based on user role
   const formSchema = isProvider ? signalAccountSchema : tradeAccountSchema;
+  type FormValues = z.infer<typeof formSchema>;
 
-  // Set up form
-  const form = useForm<z.infer<typeof formSchema>>({
+  // Set up form with conditional type
+  const form = useForm<any>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       ...(isProvider
@@ -90,13 +91,13 @@ export function AddAccountDialog({ open, onOpenChange, isProvider }: AddAccountD
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: any) => {
     createAccountMutation.mutate(values);
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Add {isProvider ? "Signal" : "Trade"} Account</DialogTitle>
           <DialogDescription>

@@ -49,15 +49,21 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
     return name?.substring(0, 2).toUpperCase() || 'SP';
   };
 
+  // Check if user is a provider (will hide Subscribe button)
+  const { data: userData } = useQuery({
+    queryKey: ["/api/user"],
+  });
+  const isProvider = userData && (userData as any)?.role === 'provider';
+
   return (
     <Card className="overflow-hidden">
       <CardContent className="p-4">
         <div className="flex items-center mb-3">
           <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center text-sm font-medium">
-            {providerDetails ? getInitials(providerDetails.displayName) : 'SP'}
+            {providerDetails ? getInitials((providerDetails as any)?.displayName || '') : 'SP'}
           </div>
           <div className="ml-3">
-            <h3 className="font-medium">{providerDetails?.displayName || 'Signal Provider'}</h3>
+            <h3 className="font-medium">{(providerDetails as any)?.displayName || 'Signal Provider'}</h3>
             <p className="text-xs text-muted-foreground">Signal Provider</p>
           </div>
           {rank && (
@@ -87,7 +93,7 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
           </div>
         </div>
         
-        <div className="flex items-center justify-between">
+        <div className={`flex items-center ${isProvider ? 'justify-around' : 'justify-between'}`}>
           <Button 
             variant="secondary" 
             size="sm"
@@ -103,21 +109,23 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
             </Button>
           </Link>
           
-          <Button 
-            size="sm"
-            onClick={() => setIsSubscribeDialogOpen(true)}
-            disabled={!hasTradeAccounts}
-          >
-            Subscribe
-          </Button>
+          {!isProvider && (
+            <Button 
+              size="sm"
+              onClick={() => setIsSubscribeDialogOpen(true)}
+              disabled={!hasTradeAccounts}
+            >
+              Subscribe
+            </Button>
+          )}
         </div>
       </CardContent>
       
       {/* Performance Dialog */}
-      {performanceHistory && (
+      {performanceHistory && Array.isArray(performanceHistory) && (
         <PerformanceDialog
           signalAccount={provider}
-          performanceData={performanceHistory}
+          performanceData={performanceHistory as any[]}
           open={isPerformanceDialogOpen}
           onOpenChange={setIsPerformanceDialogOpen}
         />
@@ -126,7 +134,7 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
       {/* Subscribe Dialog */}
       <SubscribeDialog
         signalAccount={provider}
-        tradeAccounts={tradeAccounts || []}
+        tradeAccounts={(tradeAccounts && Array.isArray(tradeAccounts)) ? tradeAccounts : []}
         open={isSubscribeDialogOpen}
         onOpenChange={setIsSubscribeDialogOpen}
       />
