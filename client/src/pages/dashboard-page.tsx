@@ -10,7 +10,7 @@ import { SignalProviderCard } from "@/components/signal-provider-card";
 import { CommentSection } from "@/components/comment-section";
 import { AddAccountDialog } from "@/components/add-account-dialog";
 import { useState } from "react";
-import { ArrowUp, ArrowDown, Plus, Bank, RefreshCw, BarChart } from "lucide-react";
+import { ArrowUp, ArrowDown, Plus, CreditCard, RefreshCw, BarChart } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "wouter";
 
@@ -116,7 +116,7 @@ export default function DashboardPage() {
                 <h3 className="text-muted-foreground text-sm">
                   {isProvider ? "Signal Accounts" : "Trade Accounts"}
                 </h3>
-                <Bank className="h-4 w-4 text-primary" />
+                <CreditCard className="h-4 w-4 text-primary" />
               </div>
               <p className="text-2xl font-semibold mt-2">{accounts?.length || 0}</p>
               {!isProvider && accounts?.length > 0 && (

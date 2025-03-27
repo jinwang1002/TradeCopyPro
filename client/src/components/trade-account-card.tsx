@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
-import { Bank, Settings } from "lucide-react";
+import { CreditCard, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TradesTable } from "./trades-table";
 import { useQuery } from "@tanstack/react-query";
@@ -47,7 +47,7 @@ export function TradeAccountCard({ account, isProvider = false, subscriptions }:
           <div>
             <div className="flex items-center">
               <div className="h-10 w-10 rounded-md bg-primary/10 flex items-center justify-center text-primary">
-                <Bank className="h-5 w-5" />
+                <CreditCard className="h-5 w-5" />
               </div>
               <div className="ml-3">
                 <h3 className="font-medium">{account.brokerName} Account</h3>

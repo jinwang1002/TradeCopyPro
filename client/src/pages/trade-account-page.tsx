@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TradesTable } from "@/components/trades-table";
 import { SubscriptionCard } from "@/components/subscription-card";
-import { ArrowLeft, Bank, Settings, CreditCard } from "lucide-react";
+import { ArrowLeft, Settings, CreditCard, Wallet } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { PerformanceChart } from "@/components/performance-chart";
@@ -124,7 +124,7 @@ export default function TradeAccountPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-center">
                 <div className="h-12 w-12 rounded-md bg-primary/10 flex items-center justify-center text-primary">
-                  <Bank className="h-6 w-6" />
+                  <Wallet className="h-6 w-6" />
                 </div>
                 <div className="ml-4">
                   <h1 className="text-2xl font-bold">{tradeAccount.brokerName} Account</h1>
