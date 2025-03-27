@@ -74,19 +74,21 @@ export function MainLayout({ children }: MainLayoutProps) {
       return (
         <div className="min-h-screen bg-background flex flex-col">
           <div className="flex h-16 border-b items-center px-4">
-            <div className="flex items-center">
-              <div className="h-8 w-8 bg-primary rounded-md flex items-center justify-center">
-                <LineChart className="h-5 w-5 text-white" />
+            <Link href="/">
+              <div className="flex items-center cursor-pointer">
+                <div className="h-8 w-8 bg-primary rounded-md flex items-center justify-center">
+                  <LineChart className="h-5 w-5 text-white" />
+                </div>
+                <h1 className="font-heading font-bold text-lg ml-2">TradeRiser</h1>
               </div>
-              <h1 className="font-heading font-bold text-lg ml-2">TradeRiser</h1>
-            </div>
+            </Link>
             <div className="ml-auto flex gap-2">
-              <a href="/auth">
+              <Link href="/auth">
                 <Button variant="outline" size="sm">Log In</Button>
-              </a>
-              <a href="/auth">
+              </Link>
+              <Link href="/auth">
                 <Button size="sm">Sign Up</Button>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="flex-1">{children}</div>
@@ -121,12 +123,14 @@ export function MainLayout({ children }: MainLayoutProps) {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Mobile header */}
       <div className="md:hidden flex h-16 border-b items-center px-4">
-        <div className="flex items-center">
-          <div className="h-8 w-8 bg-primary rounded-md flex items-center justify-center">
-            <LineChart className="h-5 w-5 text-white" />
+        <Link href="/">
+          <div className="flex items-center cursor-pointer">
+            <div className="h-8 w-8 bg-primary rounded-md flex items-center justify-center">
+              <LineChart className="h-5 w-5 text-white" />
+            </div>
+            <h1 className="font-heading font-bold text-lg ml-2">TradeRiser</h1>
           </div>
-          <h1 className="font-heading font-bold text-lg ml-2">TradeRiser</h1>
-        </div>
+        </Link>
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="ml-auto">
@@ -136,12 +140,14 @@ export function MainLayout({ children }: MainLayoutProps) {
           <SheetContent side="left" className="p-0">
             <div className="flex flex-col h-full bg-background">
               <div className="flex items-center justify-between p-4 border-b">
-                <div className="flex items-center">
-                  <div className="h-8 w-8 bg-primary rounded-md flex items-center justify-center">
-                    <LineChart className="h-5 w-5 text-white" />
+                <Link href="/" onClick={() => setIsOpen(false)}>
+                  <div className="flex items-center cursor-pointer">
+                    <div className="h-8 w-8 bg-primary rounded-md flex items-center justify-center">
+                      <LineChart className="h-5 w-5 text-white" />
+                    </div>
+                    <h1 className="font-heading font-bold text-lg ml-2">TradeRiser</h1>
                   </div>
-                  <h1 className="font-heading font-bold text-lg ml-2">TradeRiser</h1>
-                </div>
+                </Link>
                 <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
                   <X className="h-5 w-5" />
                 </Button>
@@ -195,10 +201,14 @@ export function MainLayout({ children }: MainLayoutProps) {
         <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 bg-background border-r z-10">
           <div className="flex-1 flex flex-col min-h-0">
             <div className="flex items-center h-16 px-4 border-b">
-              <div className="h-10 w-10 bg-primary rounded-md flex items-center justify-center">
-                <LineChart className="h-6 w-6 text-white" />
-              </div>
-              <h1 className="font-heading font-bold text-xl ml-3">TradeRiser</h1>
+              <Link href="/">
+                <div className="flex items-center cursor-pointer">
+                  <div className="h-10 w-10 bg-primary rounded-md flex items-center justify-center">
+                    <LineChart className="h-6 w-6 text-white" />
+                  </div>
+                  <h1 className="font-heading font-bold text-xl ml-3">TradeRiser</h1>
+                </div>
+              </Link>
             </div>
             
             <nav className="flex-1 p-4">

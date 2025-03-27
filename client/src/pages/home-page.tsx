@@ -50,12 +50,12 @@ export default function HomePage() {
                   Connect with expert traders, copy their strategies, and maximize your trading potential.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <a href="/auth">
+                  <Link href="/auth">
                     <Button size="lg" className="px-8">
                       Get Started
                       <ChevronRight className="ml-2 h-4 w-4" />
                     </Button>
-                  </a>
+                  </Link>
                   <Button variant="outline" size="lg" onClick={() => window.scrollTo({ top: document.getElementById('features')?.offsetTop || 0, behavior: 'smooth' })}>
                     Learn More
                   </Button>
@@ -203,12 +203,12 @@ export default function HomePage() {
         <div className="mb-16">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">Top Performing Providers</h2>
-            <a href="/providers">
+            <Link href="/providers">
               <Button variant="ghost" className="text-primary">
                 View All
                 <ChevronRight className="ml-1 h-4 w-4" />
               </Button>
-            </a>
+            </Link>
           </div>
 
           {isTopProvidersLoading ? (
@@ -237,12 +237,12 @@ export default function HomePage() {
             <p className="text-xl text-muted-foreground mb-8">
               Join TradeRiser today and connect with top-performing traders from around the world.
             </p>
-            <a href="/auth">
+            <Link href="/auth">
               <Button size="lg" className="px-8">
                 Create Your Account
                 <ChevronRight className="ml-2 h-4 w-4" />
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
 
