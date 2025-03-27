@@ -81,12 +81,10 @@ export default function DashboardPage() {
       <div className="p-4 md:p-6 max-w-7xl mx-auto">
         <header className="mb-6">
           <h1 className="text-2xl md:text-3xl font-heading font-semibold">
-            {isProvider ? "Signal Provider Dashboard" : "Subscriber Dashboard"}
+            Subscriber Dashboard
           </h1>
           <p className="text-muted-foreground mt-1">
-            {isProvider 
-              ? "Manage your signal accounts and monitor performance" 
-              : "Manage your trade accounts and subscriptions"}
+            Manage your trade accounts and subscriptions
           </p>
         </header>
         
@@ -96,7 +94,7 @@ export default function DashboardPage() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-muted-foreground text-sm">
-                  {isProvider ? "Active Subscribers" : "Active Subscriptions"}
+                  Active Subscriptions
                 </h3>
                 <RefreshCw className="h-4 w-4 text-primary" />
               </div>
@@ -114,7 +112,7 @@ export default function DashboardPage() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-muted-foreground text-sm">
-                  {isProvider ? "Signal Accounts" : "Trade Accounts"}
+                  Trade Accounts
                 </h3>
                 <CreditCard className="h-4 w-4 text-primary" />
               </div>
@@ -131,7 +129,7 @@ export default function DashboardPage() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-muted-foreground text-sm">
-                  {isProvider ? "Total Trades" : "Active Trades"}
+                  Active Trades
                 </h3>
                 <BarChart className="h-4 w-4 text-primary" />
               </div>
@@ -153,7 +151,7 @@ export default function DashboardPage() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-muted-foreground text-sm">
-                  {isProvider ? "Average Performance" : "Overall Performance"}
+                  Overall Performance
                 </h3>
                 <BarChart className="h-4 w-4 text-primary" />
               </div>

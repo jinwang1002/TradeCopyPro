@@ -44,16 +44,16 @@ export function MainLayout({ children }: MainLayoutProps) {
       active: location.startsWith("/providers"),
     },
     {
+      name: "Accounts",
+      href: "/accounts",
+      icon: BarChart2,
+      active: location === "/accounts" || location.startsWith("/trade-accounts"),
+    },
+    {
       name: "Subscriptions",
       href: "/subscriptions",
       icon: RefreshCw,
       active: location === "/subscriptions",
-    },
-    {
-      name: "Performance",
-      href: "/performance",
-      icon: BarChart2,
-      active: location === "/performance",
     },
     {
       name: "Profile",
