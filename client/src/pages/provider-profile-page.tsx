@@ -182,33 +182,33 @@ export default function ProviderProfilePage() {
           </CardContent>
         </Card>
         
-        {/* Account Details */}
+        {/* Subscription Details */}
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="flex items-center">
               <ChevronDown className="mr-2 h-5 w-5" />
-              Account Details
+              Subscription Details
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Broker</p>
-                <p className="font-medium">{signalAccount.brokerName}</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Account ID</p>
-                <p className="font-medium">{signalAccount.accountId}</p>
-              </div>
-              <div>
                 <p className="text-sm text-muted-foreground mb-1">Subscription Fee</p>
                 <p className="font-medium">$30/month (7-day free trial)</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Created</p>
+                <p className="text-sm text-muted-foreground mb-1">Trading Since</p>
                 <p className="font-medium">
                   {new Date(signalAccount.createdAt).toLocaleDateString()}
                 </p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground mb-1">Timeframe</p>
+                <p className="font-medium">All timeframes</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground mb-1">Trading Style</p>
+                <p className="font-medium">Swing & Day Trading</p>
               </div>
             </div>
           </CardContent>

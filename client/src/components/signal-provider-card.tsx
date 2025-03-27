@@ -105,7 +105,7 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
           
           <Link href={`/providers/${provider.id}`}>
             <Button variant="outline" size="sm">
-              View Profile
+              View More
             </Button>
           </Link>
           
@@ -125,7 +125,7 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
       {performanceHistory && Array.isArray(performanceHistory) && (
         <PerformanceDialog
           signalAccount={provider}
-          performanceData={performanceHistory as any[]}
+          performanceData={performanceHistory}
           open={isPerformanceDialogOpen}
           onOpenChange={setIsPerformanceDialogOpen}
         />
