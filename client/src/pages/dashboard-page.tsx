@@ -99,12 +99,10 @@ export default function DashboardPage() {
                 <RefreshCw className="h-4 w-4 text-primary" />
               </div>
               <p className="text-2xl font-semibold mt-2">{activeSubs}</p>
-              {!isProvider && (
-                <div className="text-xs text-green-500 mt-1 flex items-center">
-                  <ArrowUp className="mr-1 h-3 w-3" />
-                  <span>+1 this month</span>
-                </div>
-              )}
+              <div className="text-xs text-green-500 mt-1 flex items-center">
+                <ArrowUp className="mr-1 h-3 w-3" />
+                <span>+1 this month</span>
+              </div>
             </CardContent>
           </Card>
           
@@ -117,7 +115,7 @@ export default function DashboardPage() {
                 <CreditCard className="h-4 w-4 text-primary" />
               </div>
               <p className="text-2xl font-semibold mt-2">{accounts?.length || 0}</p>
-              {!isProvider && accounts?.length > 0 && (
+              {accounts?.length > 0 && (
                 <p className="text-xs text-muted-foreground mt-1">
                   {accounts.map((acc: any) => acc.brokerName).join(", ")}
                 </p>
@@ -134,16 +132,14 @@ export default function DashboardPage() {
                 <BarChart className="h-4 w-4 text-primary" />
               </div>
               <p className="text-2xl font-semibold mt-2">{openTrades}</p>
-              {!isProvider && (
-                <div className="flex justify-between text-xs mt-1">
-                  <span className="text-green-500 flex items-center">
-                    <ArrowUp className="mr-1 h-3 w-3" /> 5 Buy
-                  </span>
-                  <span className="text-red-500 flex items-center">
-                    <ArrowDown className="mr-1 h-3 w-3" /> 2 Sell
-                  </span>
-                </div>
-              )}
+              <div className="flex justify-between text-xs mt-1">
+                <span className="text-green-500 flex items-center">
+                  <ArrowUp className="mr-1 h-3 w-3" /> 5 Buy
+                </span>
+                <span className="text-red-500 flex items-center">
+                  <ArrowDown className="mr-1 h-3 w-3" /> 2 Sell
+                </span>
+              </div>
             </CardContent>
           </Card>
           
@@ -195,7 +191,7 @@ export default function DashboardPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-heading font-semibold">
-              {isProvider ? "Your Signal Accounts" : "Trade Accounts"}
+              Trade Accounts
             </h2>
             <Button onClick={() => setIsAddAccountDialogOpen(true)}>
               <Plus className="mr-2 h-4 w-4" />
@@ -223,7 +219,7 @@ export default function DashboardPage() {
             <Card>
               <CardContent className="p-6 text-center">
                 <p className="mb-4 text-muted-foreground">
-                  You haven't added any {isProvider ? "signal" : "trade"} accounts yet.
+                  You haven't added any trade accounts yet.
                 </p>
                 <Button onClick={() => setIsAddAccountDialogOpen(true)}>
                   <Plus className="mr-2 h-4 w-4" />
