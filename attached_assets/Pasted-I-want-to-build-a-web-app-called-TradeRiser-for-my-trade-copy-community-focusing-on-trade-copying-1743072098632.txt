@@ -1,0 +1,68 @@
+I want to build a web app called ‘TradeRiser’ for my trade copy community, focusing on trade copying (like a simplified ZuluTrade). Signal providers share observer accounts, subscribers copy trades with custom settings, and the service is monetized with paid subscriptions (including a free trial) and provider rewards. Subscribers can have multiple trade accounts, and each trade account can copy trades from multiple signal accounts (many-to-many relationship). Here’s the detailed functionality:
+
+User Authentication:
+Sign-up/login page: email, password, username, role (signal provider or subscriber).
+On sign-up, users provide a display name/nickname (e.g., ‘TraderJoe’).
+After login, users go to their dashboard.
+Signal Provider Dashboard:
+Form to add observer accounts: ‘Account Nickname’ (e.g., ‘Aggressive Scalper’), ‘Description’ (e.g., ‘High-risk, short-term trades on EUR/USD’), ‘Account ID,’ ‘Broker Name,’ ‘API Key/Token’.
+List all their signal accounts with performance stats: return %, win rate, total trades, profit/loss, max drawdown %.
+For each signal account:
+Show open trades (e.g., ‘Buy EUR/USD at 1.1000, SL 1.0950, TP 1.1100, Status: Open’).
+Show trade history (e.g., ‘Sell GBP/USD at 1.3000, Closed, Profit: +30 pips’).
+Show earnings: ‘Total Earnings: $X’ (calculated as: $10 per subscriber per month + $50 bonus per 10% return).
+Subscriber Dashboard:
+Form to add multiple trade accounts: ‘Broker Name,’ ‘Account ID,’ ‘API Key/Token’ (e.g., ‘IC Markets, ID: 12345’ and ‘Pepperstone, ID: 67890’).
+List all trade accounts and their subscriptions:
+Example: ‘IC Markets Account: Copying Aggressive Scalper (Trial: Ends 2025-04-02), Steady Growth (Active)’ and ‘Pepperstone Account: Copying Trend Follower (Trial)’).
+For each trade account:
+Show open trades per signal account (e.g., ‘IC Markets – Aggressive Scalper: Buy EUR/USD at 1.1000, Lot Size: 0.5x’).
+Show trade history per signal account (e.g., ‘IC Markets – Aggressive Scalper: Sell GBP/USD, Profit: +15 pips’).
+Button to ‘Manage Subscriptions’ (links to Providers page).
+Main Page (Home):
+Top Performers: List top-performing signal accounts (sorted by return %): show provider’s name/nickname, signal account nickname, return %, win rate, max drawdown % (e.g., ‘Provider: TraderJoe – Aggressive Scalper, Return: +150%’).
+‘View Details’ button: opens a modal with a graph of return % over time (line chart, last 6 months).
+General Comments Section: A section for community comments (e.g., ‘Great platform!’), with a form to post comments and display existing ones (username, timestamp).
+‘View Provider’ button: links to the provider’s profile page.
+Providers Page:
+List all signal accounts: provider’s name/nickname, signal account nickname, description, stats (return %, win rate, drawdown).
+‘View Profile’ button: links to the provider’s profile page.
+‘Subscribe’ button:
+If no trade accounts are added, prompt: ‘Please add a trade account in the dashboard first.’
+If trade accounts exist, show a dropdown: ‘Select Trade Account to Copy To’ (e.g., ‘IC Markets,’ ‘Pepperstone’).
+Start a 7-day free trial for the subscription (no payment required).
+After trial, charge $30/month via Stripe (unless canceled).
+Allow setting copy preferences: lot size (0.5x/1x/2x), reverse copy, filters (‘Only SL/TP trades’).
+Save subscription, trial status, and settings to the database, linked to the selected trade account.
+Provider Profile Page:
+Show provider’s name/nickname, list of their signal accounts with stats and descriptions.
+Comments section: users can post comments about the provider (e.g., ‘Great signals!’), show comments with username and timestamp.
+‘Subscribe’ button for each signal account (same flow as Providers page).
+Trade Copying:
+Backend pulls trades from signal accounts (mock with sample data: ‘Buy EUR/USD at 1.1000, SL 1.0950, TP 1.1100’).
+Broadcast trades to subscribers in real-time, copy to their selected trade account(s) based on settings.
+Store trades in the database (open trades, history).
+Payment, Free Trial, and Rewards:
+Free trial: 7 days for new subscriptions, track trial status (start date, active/expired).
+After trial, charge $30/month via Stripe (notify: ‘Trial ends on [date]. Subscribe to continue.’).
+Track subscription status in the database.
+Provider rewards: $10 per subscriber per month + $50 bonus per 10% return.
+Store and display provider earnings in their dashboard.
+Database (Supabase):
+Store users: email, password (hashed), username, display name/nickname, role.
+Store signal accounts: nickname, description, Account ID, Broker, API Key/Token, stats.
+Store subscriber trade accounts: Broker, Account ID, API Key/Token (multiple per subscriber).
+Store M-to-M relationships (trade account to signal account): trade account ID, signal account ID, copy settings, trial status, payment status.
+Store trades: open trades, trade history (linked to trade account and signal account).
+Store comments: user, signal account or general, comment text, timestamp.
+Store provider earnings.
+Design:
+Dark theme (black background, white text, green/red for buy/sell).
+Mobile-friendly, responsive.
+Navigation: Home, Providers, Subscriptions, Profile, Logout.
+Technical Requirements:
+React and TypeScript for the frontend.
+Node.js backend for trade broadcasting, copying, and payment processing.
+Supabase for database and real-time updates (trades, comments).
+Use Chart.js for performance graphs.
+Integrate Stripe for payments.
