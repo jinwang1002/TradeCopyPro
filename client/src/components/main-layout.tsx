@@ -81,12 +81,12 @@ export function MainLayout({ children }: MainLayoutProps) {
               <h1 className="font-heading font-bold text-lg ml-2">TradeRiser</h1>
             </div>
             <div className="ml-auto flex gap-2">
-              <Link href="/auth">
+              <a href="/auth">
                 <Button variant="outline" size="sm">Log In</Button>
-              </Link>
-              <Link href="/auth">
+              </a>
+              <a href="/auth">
                 <Button size="sm">Sign Up</Button>
-              </Link>
+              </a>
             </div>
           </div>
           <div className="flex-1">{children}</div>
