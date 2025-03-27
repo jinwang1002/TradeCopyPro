@@ -39,28 +39,100 @@ export default function HomePage() {
     <MainLayout>
       <div className="p-4 md:p-6 max-w-7xl mx-auto">
         {/* Hero Section */}
-        <div className="relative py-12 md:py-20 px-4 md:px-12 rounded-3xl bg-gradient-to-br from-primary/10 to-primary/5 mb-12">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-              Elevate Your Trading with <span className="text-primary">TradeRiser</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Connect with expert traders, copy their strategies, and maximize your trading potential.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/auth">
-                <Button size="lg" className="px-8">
-                  Get Started
-                  <ChevronRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Button variant="outline" size="lg">
-                Learn More
-              </Button>
+        <div className="relative mb-12 overflow-hidden rounded-3xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div className="py-12 md:py-20 px-4 md:px-12 bg-gradient-to-br from-primary/10 to-primary/5">
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+                  Elevate Your Trading with <span className="text-primary">TradeRiser</span>
+                </h1>
+                <p className="text-xl md:text-2xl text-muted-foreground mb-8">
+                  Connect with expert traders, copy their strategies, and maximize your trading potential.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link href="/auth">
+                    <Button size="lg" className="px-8">
+                      Get Started
+                      <ChevronRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <Button variant="outline" size="lg">
+                    Learn More
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="absolute right-0 bottom-0 -z-10 opacity-20">
-            <TrendingUp className="w-64 h-64 text-primary" />
+            
+            <div className="relative overflow-hidden rounded-r-3xl h-full min-h-[400px] bg-gradient-to-tr from-primary/80 to-primary/30">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative z-10 p-6">
+                  {/* Trading terminal visual */}
+                  <div className="bg-black/60 backdrop-blur-sm p-4 rounded-lg shadow-xl w-full max-w-md border border-white/10">
+                    <div className="flex justify-between items-center mb-4">
+                      <div className="text-white font-semibold">EURUSD Chart</div>
+                      <div className="flex space-x-1">
+                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      </div>
+                    </div>
+                    <div className="h-32 mb-4 bg-black/30 rounded relative overflow-hidden">
+                      {/* Faux chart */}
+                      <div className="absolute h-px w-full bg-green-500/30 top-1/2"></div>
+                      <svg 
+                        viewBox="0 0 200 100" 
+                        className="h-full w-full" 
+                        preserveAspectRatio="none"
+                      >
+                        <polyline
+                          points="0,50 20,45 40,55 60,40 80,60 100,35 120,55 140,30 160,45 180,25 200,40"
+                          fill="none"
+                          stroke="#22c55e"
+                          strokeWidth="2"
+                        />
+                      </svg>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="bg-black/40 p-2 rounded text-xs text-white">
+                        <div className="text-green-500">+1.24%</div>
+                        <div className="text-gray-400 text-[10px]">Daily</div>
+                      </div>
+                      <div className="bg-black/40 p-2 rounded text-xs text-white">
+                        <div className="text-red-500">-0.34%</div>
+                        <div className="text-gray-400 text-[10px]">Weekly</div>
+                      </div>
+                      <div className="bg-black/40 p-2 rounded text-xs text-white">
+                        <div className="text-green-500">+8.76%</div>
+                        <div className="text-gray-400 text-[10px]">Monthly</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Small trading widgets */}
+                  <div className="flex mt-4 gap-2">
+                    <div className="bg-black/60 backdrop-blur-sm p-3 rounded-lg border border-white/10 text-white text-xs flex-1">
+                      <div className="font-bold">BTCUSD</div>
+                      <div className="flex items-center justify-between">
+                        <div>42,356.89</div>
+                        <div className="text-green-500">+2.4%</div>
+                      </div>
+                    </div>
+                    <div className="bg-black/60 backdrop-blur-sm p-3 rounded-lg border border-white/10 text-white text-xs flex-1">
+                      <div className="font-bold">GOLD</div>
+                      <div className="flex items-center justify-between">
+                        <div>1,823.45</div>
+                        <div className="text-red-500">-0.8%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Decorative elements */}
+              <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-white/5 rounded-full blur-2xl"></div>
+              <div className="absolute top-20 -left-10 w-40 h-40 bg-white/10 rounded-full blur-xl"></div>
+              <div className="absolute bottom-20 right-20 w-20 h-20 bg-white/10 rounded-full blur-lg"></div>
+            </div>
           </div>
         </div>
 

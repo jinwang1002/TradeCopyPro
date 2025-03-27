@@ -67,8 +67,34 @@ export function MainLayout({ children }: MainLayoutProps) {
     logoutMutation.mutate();
   };
 
-  // Handle loading state
+  // Handle home page and non-authenticated state
   if (!user) {
+    // Check if we're on the home page
+    if (location === "/") {
+      return (
+        <div className="min-h-screen bg-background flex flex-col">
+          <div className="flex h-16 border-b items-center px-4">
+            <div className="flex items-center">
+              <div className="h-8 w-8 bg-primary rounded-md flex items-center justify-center">
+                <LineChart className="h-5 w-5 text-white" />
+              </div>
+              <h1 className="font-heading font-bold text-lg ml-2">TradeRiser</h1>
+            </div>
+            <div className="ml-auto flex gap-2">
+              <Link href="/auth">
+                <Button variant="outline" size="sm">Log In</Button>
+              </Link>
+              <Link href="/auth">
+                <Button size="sm">Sign Up</Button>
+              </Link>
+            </div>
+          </div>
+          <div className="flex-1">{children}</div>
+        </div>
+      );
+    }
+    
+    // For other non-authenticated pages
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <div className="flex h-16 border-b items-center px-4">

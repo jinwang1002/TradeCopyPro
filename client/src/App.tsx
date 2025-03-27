@@ -5,6 +5,7 @@ import AuthPage from "@/pages/auth-page";
 import HomePage from "@/pages/home-page";
 import { ProtectedRoute } from "./lib/protected-route";
 import DashboardPage from "./pages/dashboard-page";
+import ProviderDashboardPage from "./pages/provider-dashboard-page";
 import ProvidersPage from "./pages/providers-page";
 import ProviderProfilePage from "./pages/provider-profile-page";
 import TradeAccountPage from "./pages/trade-account-page";
@@ -13,13 +14,17 @@ import CheckoutSuccessPage from "./pages/checkout-success-page";
 import ProfilePage from "./pages/profile-page";
 import AccountsPage from "./pages/accounts-page";
 import SubscriptionsPage from "./pages/subscriptions-page";
+import { useAuth } from "./hooks/use-auth";
 
 function Router() {
+  const { user } = useAuth();
+  const isProvider = user?.role === "provider";
+
   return (
     <Switch>
       <Route path="/" component={HomePage} />
       <Route path="/auth" component={AuthPage} />
-      <ProtectedRoute path="/dashboard" component={DashboardPage} />
+      <ProtectedRoute path="/dashboard" component={isProvider ? ProviderDashboardPage : DashboardPage} />
       <ProtectedRoute path="/providers" component={ProvidersPage} />
       <ProtectedRoute path="/providers/:id" component={ProviderProfilePage} />
       <ProtectedRoute path="/accounts" component={AccountsPage} />

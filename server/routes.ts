@@ -28,6 +28,170 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Error fetching signal accounts" });
     }
   });
+  
+  // Provider-specific APIs
+  app.get("/api/users/:userId/signal-accounts", async (req, res) => {
+    try {
+      if (!req.isAuthenticated()) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      
+      const userId = parseInt(req.params.userId);
+      
+      // Verify user has access to this data
+      if (req.user?.id !== userId && req.user?.role !== "admin") {
+        return res.status(403).json({ message: "Forbidden" });
+      }
+      
+      const accounts = await storage.getSignalAccountsByUserId(userId);
+      res.json(accounts);
+    } catch (err) {
+      res.status(500).json({ message: "Error fetching user signal accounts" });
+    }
+  });
+  
+  app.get("/api/users/:userId/trades", async (req, res) => {
+    try {
+      if (!req.isAuthenticated()) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      
+      const userId = parseInt(req.params.userId);
+      
+      // Verify user has access to this data
+      if (req.user?.id !== userId && req.user?.role !== "admin") {
+        return res.status(403).json({ message: "Forbidden" });
+      }
+      
+      // Get signal accounts for this user
+      const accounts = await storage.getSignalAccountsByUserId(userId);
+      
+      // Get trades for each signal account
+      const trades = [];
+      for (const account of accounts) {
+        const accountTrades = await storage.getTradesBySignalAccountId(account.id);
+        trades.push(...accountTrades);
+      }
+      
+      // Sort trades by date (newest first)
+      trades.sort((a, b) => new Date(b.openedAt).getTime() - new Date(a.openedAt).getTime());
+      
+      res.json(trades);
+    } catch (err) {
+      res.status(500).json({ message: "Error fetching user trades" });
+    }
+  });
+  
+  app.get("/api/users/:userId/subscribers", async (req, res) => {
+    try {
+      if (!req.isAuthenticated()) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      
+      const userId = parseInt(req.params.userId);
+      
+      // Verify user has access to this data
+      if (req.user?.id !== userId && req.user?.role !== "admin") {
+        return res.status(403).json({ message: "Forbidden" });
+      }
+      
+      // Get signal accounts for this user
+      const accounts = await storage.getSignalAccountsByUserId(userId);
+      
+      // Get subscriptions for each signal account
+      const subscribers = [];
+      for (const account of accounts) {
+        const subscriptions = await storage.getSubscriptionsBySignalAccountId(account.id);
+        // Get additional data for each subscription
+        for (const subscription of subscriptions) {
+          const tradeAccount = await storage.getTradeAccount(subscription.tradeAccountId);
+          if (tradeAccount) {
+            subscribers.push({
+              ...subscription,
+              signalAccountId: account.id,
+              signalAccountName: account.nickname,
+              accountBalance: Math.floor(Math.random() * 10000) + 5000, // Simulated balance
+              tradeAccount
+            });
+          }
+        }
+      }
+      
+      res.json(subscribers);
+    } catch (err) {
+      res.status(500).json({ message: "Error fetching subscribers" });
+    }
+  });
+  
+  app.get("/api/users/:userId/earnings", async (req, res) => {
+    try {
+      if (!req.isAuthenticated()) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      
+      const userId = parseInt(req.params.userId);
+      
+      // Verify user has access to this data
+      if (req.user?.id !== userId && req.user?.role !== "admin") {
+        return res.status(403).json({ message: "Forbidden" });
+      }
+      
+      const earnings = await storage.getProviderEarningsByUserId(userId);
+      res.json(earnings);
+    } catch (err) {
+      res.status(500).json({ message: "Error fetching provider earnings" });
+    }
+  });
+  
+  app.get("/api/users/:userId/performance", async (req, res) => {
+    try {
+      if (!req.isAuthenticated()) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      
+      const userId = parseInt(req.params.userId);
+      
+      // Verify user has access to this data
+      if (req.user?.id !== userId && req.user?.role !== "admin") {
+        return res.status(403).json({ message: "Forbidden" });
+      }
+      
+      // Get signal accounts for this user
+      const accounts = await storage.getSignalAccountsByUserId(userId);
+      
+      // Get performance data for each account
+      const performanceData = [];
+      for (const account of accounts) {
+        const history = await storage.getPerformanceHistoryBySignalAccountId(account.id);
+        performanceData.push(...history);
+      }
+      
+      // Average the performance data by date
+      const performanceByDate = {};
+      
+      for (const entry of performanceData) {
+        const dateStr = new Date(entry.date).toLocaleDateString();
+        if (!performanceByDate[dateStr]) {
+          performanceByDate[dateStr] = { date: dateStr, total: 0, count: 0 };
+        }
+        performanceByDate[dateStr].total += entry.value;
+        performanceByDate[dateStr].count += 1;
+      }
+      
+      // Convert to array and calculate averages
+      const result = Object.values(performanceByDate).map((entry: any) => ({
+        date: entry.date,
+        value: entry.total / entry.count
+      }));
+      
+      // Sort by date
+      result.sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({ message: "Error fetching performance data" });
+    }
+  });
 
   app.get("/api/signal-accounts/top", async (req, res) => {
     try {
@@ -54,15 +218,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/users/:userId/signal-accounts", async (req, res) => {
-    try {
-      const userId = parseInt(req.params.userId);
-      const accounts = await storage.getSignalAccountsByUserId(userId);
-      res.json(accounts);
-    } catch (err) {
-      res.status(500).json({ message: "Error fetching user signal accounts" });
-    }
-  });
+
 
   app.post("/api/signal-accounts", async (req, res) => {
     if (!req.isAuthenticated()) {
