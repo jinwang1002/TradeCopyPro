@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { apiRequest } from "@/lib/queryClient";
 import { Card, CardContent } from "@/components/ui/card";
@@ -89,7 +90,7 @@ export function SubscribeDialog({ open, onOpenChange, signalAccount, tradeAccoun
   if (tradeAccounts.length === 0) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Subscribe to Signal</DialogTitle>
             <DialogDescription>
@@ -106,7 +107,7 @@ export function SubscribeDialog({ open, onOpenChange, signalAccount, tradeAccoun
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Subscribe to Signal</DialogTitle>
           <DialogDescription>
@@ -162,22 +163,22 @@ export function SubscribeDialog({ open, onOpenChange, signalAccount, tradeAccoun
                 name="lotSizeMultiplier"
                 render={({ field }) => (
                   <FormItem className="flex items-center justify-between">
-                    <FormLabel className="text-sm flex-1">Lot Size Multiplier</FormLabel>
-                    <Select 
-                      onValueChange={field.onChange} 
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger className="w-24">
-                          <SelectValue placeholder="Select multiplier" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="0.5">0.5x</SelectItem>
-                        <SelectItem value="1">1x</SelectItem>
-                        <SelectItem value="2">2x</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-sm">Lot Size Multiplier</FormLabel>
+                      <FormDescription className="text-xs text-muted-foreground">
+                        Higher values increase position sizes
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Input 
+                        type="number"
+                        min="0.01"
+                        step="0.01"
+                        className="w-24" 
+                        placeholder="1.0"
+                        {...field}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
