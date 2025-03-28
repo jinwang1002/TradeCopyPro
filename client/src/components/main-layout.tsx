@@ -160,6 +160,7 @@ export function MainLayout({ children }: MainLayoutProps) {
               </div>
               
               <nav className="flex-1 p-4">
+                <p className="text-xs font-medium text-gray-400 mb-2 uppercase">Menu</p>
                 <ul className="space-y-1">
                   {navigation.map((item) => (
                     <li key={item.name}>
@@ -167,8 +168,10 @@ export function MainLayout({ children }: MainLayoutProps) {
                         <Button
                           variant="ghost"
                           className={cn(
-                            "w-full justify-start text-gray-300",
-                            item.active ? "bg-gray-900 text-white" : "hover:bg-gray-900 hover:text-white"
+                            "w-full justify-start",
+                            item.active 
+                              ? "bg-gray-900/50 text-white border-l-2 border-green-500" 
+                              : "text-gray-400 hover:bg-gray-900/30 hover:text-gray-300"
                           )}
                           onClick={() => setIsOpen(false)}
                         >
@@ -182,8 +185,8 @@ export function MainLayout({ children }: MainLayoutProps) {
               </nav>
               
               <div className="border-t border-gray-800 p-4">
-                <div className="flex items-center px-2 py-2">
-                  <div className="h-8 w-8 rounded-full bg-gray-800 flex items-center justify-center text-sm font-medium text-white">
+                <div className="flex items-center p-2 bg-gray-900/30 rounded-lg">
+                  <div className="h-9 w-9 rounded-full bg-[#141414] border border-gray-700 flex items-center justify-center text-sm font-medium text-white">
                     {user.displayName.substring(0, 2).toUpperCase()}
                   </div>
                   <div className="ml-3">
@@ -193,7 +196,7 @@ export function MainLayout({ children }: MainLayoutProps) {
                 </div>
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-start mt-2 text-gray-400 hover:text-white hover:bg-gray-900"
+                  className="w-full justify-start mt-3 text-gray-400 hover:text-white hover:bg-gray-900/30"
                   onClick={handleLogout}
                 >
                   <LogOut className="mr-2 h-4 w-4" />
@@ -226,8 +229,10 @@ export function MainLayout({ children }: MainLayoutProps) {
                       <Button
                         variant="ghost"
                         className={cn(
-                          "w-full justify-start text-gray-300",
-                          item.active ? "bg-gray-900 text-white" : "hover:bg-gray-900 hover:text-white"
+                          "w-full justify-start",
+                          item.active 
+                            ? "bg-gray-900/50 text-white border-l-2 border-green-500" 
+                            : "text-gray-400 hover:bg-gray-900/30 hover:text-gray-300"
                         )}
                       >
                         <item.icon className="mr-3 h-5 w-5" />
@@ -240,8 +245,8 @@ export function MainLayout({ children }: MainLayoutProps) {
             </nav>
             
             <div className="border-t border-gray-800 pt-4 mt-4 px-4 pb-4">
-              <div className="flex items-center px-2 py-2">
-                <div className="h-8 w-8 rounded-full bg-gray-800 flex items-center justify-center text-sm font-medium text-white">
+              <div className="flex items-center p-2 bg-gray-900/30 rounded-lg">
+                <div className="h-9 w-9 rounded-full bg-[#141414] border border-gray-700 flex items-center justify-center text-sm font-medium text-white">
                   {user.displayName.substring(0, 2).toUpperCase()}
                 </div>
                 <div className="ml-3">
@@ -251,7 +256,7 @@ export function MainLayout({ children }: MainLayoutProps) {
               </div>
               <Button 
                 variant="ghost" 
-                className="w-full justify-start mt-2 text-gray-400 hover:text-white hover:bg-gray-900"
+                className="w-full justify-start mt-3 text-gray-400 hover:text-white hover:bg-gray-900/30"
                 onClick={handleLogout}
               >
                 <LogOut className="mr-2 h-4 w-4" />

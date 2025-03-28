@@ -8,17 +8,18 @@
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased bg-black text-foreground;
   }
 }
 
 @layer components {
+  /* Core elements */
   .dark-input {
     @apply bg-[#141414] border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-green-500 focus-visible:border-green-400;
   }
   
   .tempo-card {
-    @apply bg-[#0D0D0D] border-gray-800 shadow-2xl;
+    @apply bg-[#0D0D0D] border border-gray-800 rounded-lg shadow-lg hover:border-gray-700 transition-all duration-200;
   }
   
   .tempo-card-metric {
@@ -27,5 +28,78 @@
   
   .tab-trigger-active {
     @apply data-[state=active]:bg-green-500 data-[state=active]:text-black data-[state=active]:shadow-md;
+  }
+  
+  /* TempoLab design system */
+  .tempo-gradient-bg {
+    @apply relative overflow-hidden;
+  }
+  
+  .tempo-gradient-bg::before {
+    @apply content-[''] absolute top-0 -right-[50%] w-full h-full bg-green-500/5 rounded-full filter blur-3xl;
+  }
+  
+  .tempo-gradient-bg::after {
+    @apply content-[''] absolute -bottom-[10%] -left-[30%] w-full h-full bg-green-500/10 rounded-full filter blur-2xl;
+  }
+  
+  .tempo-stats-card {
+    @apply bg-[#141414] p-3 rounded-lg border border-gray-800;
+  }
+  
+  .tempo-button-primary {
+    @apply bg-green-500 hover:bg-green-600 text-black font-medium rounded-md transition-colors;
+  }
+  
+  .tempo-button-secondary {
+    @apply bg-[#141414] hover:bg-gray-800 text-white border border-gray-700 rounded-md transition-colors;
+  }
+  
+  .tempo-button-ghost {
+    @apply text-gray-300 hover:text-white hover:bg-[#141414] rounded-md transition-colors;
+  }
+  
+  .tempo-link {
+    @apply text-green-500 hover:text-green-400 transition-colors;
+  }
+  
+  .tempo-badge-success {
+    @apply bg-green-500/20 text-green-400 border border-green-500/50 rounded-full px-2 py-0.5 text-xs;
+  }
+  
+  .tempo-badge-warning {
+    @apply bg-amber-950/30 text-amber-400 border border-amber-800 rounded-full px-2 py-0.5 text-xs;
+  }
+  
+  .tempo-badge-danger {
+    @apply bg-red-500/20 text-red-400 border border-red-500/50 rounded-full px-2 py-0.5 text-xs;
+  }
+  
+  .tempo-metric-value {
+    @apply text-lg font-semibold text-white;
+  }
+  
+  .tempo-metric-label {
+    @apply text-xs text-gray-400;
+  }
+  
+  .tempo-scrollbar {
+    @apply scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent;
+  }
+  
+  .tempo-dialog-content {
+    @apply bg-[#141414] border border-gray-800 text-white shadow-2xl;
+  }
+  
+  .tempo-section-title {
+    @apply text-lg font-semibold text-white mb-4;
+  }
+  
+  .tempo-card-title {
+    @apply font-medium text-white text-base;
+  }
+  
+  .tempo-card-subtitle {
+    @apply text-sm text-gray-400;
   }
 }

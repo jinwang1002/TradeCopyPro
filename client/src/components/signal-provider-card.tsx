@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
-import { LineChart } from "lucide-react";
+import { LineChart, BarChart, ArrowDownRight, RefreshCw } from "lucide-react";
 import { SubscribeDialog } from "./subscribe-dialog";
 import { PerformanceDialog } from "./performance-dialog";
 import { useState } from "react";
@@ -56,15 +56,15 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
   const isProvider = userData && (userData as any)?.role === 'provider';
 
   return (
-    <Card className="overflow-hidden bg-black border-gray-800 hover:border-gray-700 transition-all">
+    <Card className="tempo-card overflow-hidden">
       <CardContent className="p-4">
         <div className="flex items-center mb-3">
-          <div className="h-12 w-12 rounded-full border border-gray-700 bg-gray-900 flex items-center justify-center text-sm font-medium">
+          <div className="h-12 w-12 rounded-full border border-gray-700 bg-[#141414] flex items-center justify-center text-sm font-medium">
             {providerDetails ? getInitials((providerDetails as any)?.displayName || '') : 'SP'}
           </div>
           <div className="ml-3">
-            <h3 className="font-medium text-white">{(providerDetails as any)?.displayName || 'Signal Provider'}</h3>
-            <p className="text-xs text-gray-400">{provider.nickname}</p>
+            <h3 className="tempo-card-title">{(providerDetails as any)?.displayName || 'Signal Provider'}</h3>
+            <p className="tempo-card-subtitle">{provider.nickname}</p>
           </div>
           <div className="flex items-center ml-auto">
             <div className="flex items-center mr-2">
@@ -73,7 +73,7 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
               </div>
             </div>
             {rank && (
-              <Badge variant="outline" className="bg-amber-950/30 text-amber-400 border-amber-800">
+              <Badge variant="outline" className="tempo-badge-warning">
                 Top {rank}
               </Badge>
             )}
@@ -83,26 +83,26 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
         <p className="text-sm text-gray-300 mb-4">{provider.description}</p>
         
         <div className="grid grid-cols-3 gap-4 mb-4">
-          <div className="bg-gray-900 p-3 rounded-lg">
+          <div className="tempo-stats-card">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs text-gray-400">Win Rate</span>
-              <div className="h-3 w-3 text-gray-400">📊</div>
+              <span className="tempo-metric-label">Win Rate</span>
+              <BarChart className="h-3 w-3 text-gray-400" />
             </div>
-            <p className="text-lg font-semibold text-white">{provider.winRate}%</p>
+            <p className="tempo-metric-value">{provider.winRate}%</p>
           </div>
-          <div className="bg-gray-900 p-3 rounded-lg">
+          <div className="tempo-stats-card">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs text-gray-400">Drawdown</span>
-              <div className="h-3 w-3 text-gray-400">📉</div>
+              <span className="tempo-metric-label">Drawdown</span>
+              <ArrowDownRight className="h-3 w-3 text-gray-400" />
             </div>
             <p className="text-lg font-semibold text-red-500">{provider.maxDrawdown}%</p>
           </div>
-          <div className="bg-gray-900 p-3 rounded-lg">
+          <div className="tempo-stats-card">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs text-gray-400">Trades</span>
-              <div className="h-3 w-3 text-gray-400">🔄</div>
+              <span className="tempo-metric-label">Trades</span>
+              <RefreshCw className="h-3 w-3 text-gray-400" />
             </div>
-            <p className="text-lg font-semibold text-white">500+</p>
+            <p className="tempo-metric-value">500+</p>
           </div>
         </div>
         
@@ -110,7 +110,7 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
           <Button 
             variant="ghost" 
             size="sm"
-            className="text-gray-300 hover:text-white hover:bg-gray-900"
+            className="tempo-button-ghost"
             onClick={() => setIsPerformanceDialogOpen(true)}
           >
             <LineChart className="mr-1 h-4 w-4" />
@@ -121,7 +121,7 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
             <Button 
               variant="ghost" 
               size="sm" 
-              className="text-green-500 hover:text-green-400 hover:bg-gray-900"
+              className="tempo-link hover:bg-[#141414]"
             >
               View More
             </Button>
