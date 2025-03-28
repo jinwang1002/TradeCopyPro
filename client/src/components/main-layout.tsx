@@ -87,7 +87,7 @@ export function MainLayout({ children }: MainLayoutProps) {
           <div className="flex h-16 border-b border-gray-800 items-center px-4">
             <Link href="/">
               <div className="flex items-center cursor-pointer">
-                <span className="text-green-500 font-bold text-xl">TradeRiser</span>
+                <span className="text-blue-500 font-bold text-xl">TradeRiser</span>
               </div>
             </Link>
             <div className="ml-auto flex gap-2">
@@ -97,7 +97,7 @@ export function MainLayout({ children }: MainLayoutProps) {
                 </Button>
               </Link>
               <Link href="/auth">
-                <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white">
+                <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
                   Sign Up
                 </Button>
               </Link>
@@ -137,7 +137,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       <div className="md:hidden flex h-16 border-b border-gray-800 items-center px-4">
         <Link href="/">
           <div className="flex items-center cursor-pointer">
-            <span className="text-green-500 font-bold text-xl">TradeRiser</span>
+            <span className="text-blue-500 font-bold text-xl">TradeRiser</span>
           </div>
         </Link>
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -151,7 +151,7 @@ export function MainLayout({ children }: MainLayoutProps) {
               <div className="flex items-center justify-between p-4 border-b border-gray-800">
                 <Link href="/" onClick={() => setIsOpen(false)}>
                   <div className="flex items-center cursor-pointer">
-                    <span className="text-green-500 font-bold text-xl">TradeRiser</span>
+                    <span className="text-blue-500 font-bold text-xl">TradeRiser</span>
                   </div>
                 </Link>
                 <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
@@ -170,8 +170,8 @@ export function MainLayout({ children }: MainLayoutProps) {
                           className={cn(
                             "w-full justify-start",
                             item.active 
-                              ? "bg-gray-900/50 text-white border-l-2 border-green-500" 
-                              : "text-gray-400 hover:bg-gray-900/30 hover:text-gray-300"
+                              ? "nav-item-active" 
+                              : "nav-item-inactive"
                           )}
                           onClick={() => setIsOpen(false)}
                         >
@@ -215,7 +215,7 @@ export function MainLayout({ children }: MainLayoutProps) {
             <div className="flex items-center h-16 px-4 border-b border-gray-800">
               <Link href="/">
                 <div className="flex items-center cursor-pointer">
-                  <span className="text-green-500 font-bold text-xl">TradeRiser</span>
+                  <span className="text-blue-500 font-bold text-xl">TradeRiser</span>
                 </div>
               </Link>
             </div>
@@ -231,8 +231,8 @@ export function MainLayout({ children }: MainLayoutProps) {
                         className={cn(
                           "w-full justify-start",
                           item.active 
-                            ? "bg-gray-900/50 text-white border-l-2 border-green-500" 
-                            : "text-gray-400 hover:bg-gray-900/30 hover:text-gray-300"
+                            ? "nav-item-active" 
+                            : "nav-item-inactive"
                         )}
                       >
                         <item.icon className="mr-3 h-5 w-5" />

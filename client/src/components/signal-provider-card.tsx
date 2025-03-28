@@ -117,6 +117,17 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
             Performance
           </Button>
           
+          {!isProvider && hasTradeAccounts && (
+            <Button 
+              variant="secondary" 
+              size="sm" 
+              className="tempo-button-secondary"
+              onClick={() => setIsSubscribeDialogOpen(true)}
+            >
+              Subscribe
+            </Button>
+          )}
+          
           <Link href={`/providers/${provider.id}`}>
             <Button 
               variant="ghost" 
