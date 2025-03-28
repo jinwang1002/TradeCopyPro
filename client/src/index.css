@@ -11,3 +11,21 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 }
+
+@layer components {
+  .dark-input {
+    @apply bg-[#141414] border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-green-500 focus-visible:border-green-400;
+  }
+  
+  .tempo-card {
+    @apply bg-[#0D0D0D] border-gray-800 shadow-2xl;
+  }
+  
+  .tempo-card-metric {
+    @apply bg-[#141414] p-3 rounded-lg;
+  }
+  
+  .tab-trigger-active {
+    @apply data-[state=active]:bg-green-500 data-[state=active]:text-black data-[state=active]:shadow-md;
+  }
+}

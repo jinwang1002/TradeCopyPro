@@ -39,7 +39,7 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
   });
 
   // Fetch performance history
-  const { data: performanceHistory } = useQuery({
+  const { data: performanceHistory } = useQuery<any[]>({
     queryKey: [`/api/signal-accounts/${provider.id}/performance`],
     enabled: !!provider.id,
   });
@@ -130,19 +130,19 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
       </CardContent>
       
       {/* Performance Dialog */}
-      {performanceHistory && Array.isArray(performanceHistory) && (
+      {performanceHistory && Array.isArray(performanceHistory) ? (
         <PerformanceDialog
           signalAccount={provider}
           performanceData={performanceHistory as any[]}
           open={isPerformanceDialogOpen}
           onOpenChange={setIsPerformanceDialogOpen}
         />
-      )}
+      ) : null}
       
       {/* Subscribe Dialog */}
       <SubscribeDialog
         signalAccount={provider}
-        tradeAccounts={(tradeAccounts && Array.isArray(tradeAccounts)) ? tradeAccounts : []}
+        tradeAccounts={(tradeAccounts && Array.isArray(tradeAccounts)) ? tradeAccounts as any[] : []}
         open={isSubscribeDialogOpen}
         onOpenChange={setIsSubscribeDialogOpen}
       />

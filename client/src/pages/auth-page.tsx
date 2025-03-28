@@ -54,31 +54,33 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-black">
       {/* Left panel - Auth forms */}
-      <div className="w-full md:w-1/2 flex items-center justify-center p-4 md:p-8">
-        <Card className="w-full max-w-md bg-gray-900 border-gray-800 shadow-xl">
+      <div className="w-full md:w-[45%] flex items-center justify-center p-4 md:p-8">
+        <Card className="w-full max-w-md tempo-card">
           <CardHeader className="space-y-1 pb-2">
-            <div className="flex items-center mb-2">
-              <div className="h-10 w-10 bg-gradient-to-br from-green-500 to-green-600 rounded-md flex items-center justify-center mr-3">
+            <div className="flex items-center mb-3">
+              <div className="h-10 w-10 bg-gradient-to-tr from-green-500 to-green-600 rounded-md flex items-center justify-center mr-3">
                 <LineChart className="h-6 w-6 text-black" />
               </div>
-              <CardTitle className="text-2xl font-bold text-white">TradeRiser</CardTitle>
+              <div>
+                <CardTitle className="text-2xl font-bold text-white">TradeRiser</CardTitle>
+                <CardDescription className="text-gray-400">
+                  Sign in to access your dashboard
+                </CardDescription>
+              </div>
             </div>
-            <CardDescription className="text-gray-400">
-              Sign in to access your trade copy dashboard
-            </CardDescription>
           </CardHeader>
           <CardContent className="pt-4">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6 bg-gray-800">
+              <TabsList className="grid w-full grid-cols-2 mb-6 bg-[#141414] p-1 rounded-md">
                 <TabsTrigger 
                   value="login" 
-                  className={`data-[state=active]:bg-green-500 data-[state=active]:text-black ${activeTab === 'login' ? '' : 'text-gray-400'}`}
+                  className={`tab-trigger-active ${activeTab === 'login' ? '' : 'text-gray-400'}`}
                 >
                   Login
                 </TabsTrigger>
                 <TabsTrigger 
                   value="register" 
-                  className={`data-[state=active]:bg-green-500 data-[state=active]:text-black ${activeTab === 'register' ? '' : 'text-gray-400'}`}
+                  className={`tab-trigger-active ${activeTab === 'register' ? '' : 'text-gray-400'}`}
                 >
                   Register
                 </TabsTrigger>
