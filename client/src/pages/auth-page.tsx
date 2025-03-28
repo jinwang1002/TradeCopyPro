@@ -74,13 +74,13 @@ export default function AuthPage() {
               <TabsList className="grid w-full grid-cols-2 mb-6 bg-[#141414] p-1 rounded-md">
                 <TabsTrigger 
                   value="login" 
-                  className={`rounded py-1.5 ${activeTab === 'login' ? 'bg-blue-500 text-white' : 'text-gray-400 hover:text-gray-200'}`}
+                  className={`rounded py-1.5 ${activeTab === 'login' ? 'bg-blue-700 text-white' : 'bg-blue-500/20 text-blue-400 hover:text-blue-300'}`}
                 >
                   Login
                 </TabsTrigger>
                 <TabsTrigger 
                   value="register" 
-                  className={`rounded py-1.5 ${activeTab === 'register' ? 'bg-blue-500 text-white' : 'text-gray-400 hover:text-gray-200'}`}
+                  className={`rounded py-1.5 ${activeTab === 'register' ? 'bg-blue-700 text-white' : 'bg-blue-500/20 text-blue-400 hover:text-blue-300'}`}
                 >
                   Register
                 </TabsTrigger>
@@ -237,8 +237,8 @@ export default function AuthPage() {
                               type="button" 
                               variant="outline"
                               className={`${field.value === "subscriber" 
-                                ? "bg-blue-500/20 text-blue-400 border border-blue-500/50" 
-                                : "bg-gray-800 text-gray-300 border-gray-700 hover:border-gray-600"}`}
+                                ? "bg-blue-700 text-white border border-blue-600" 
+                                : "bg-blue-500/20 text-blue-400 border-blue-500/50 hover:text-blue-300"}`}
                               onClick={() => registerForm.setValue("role", "subscriber")}
                             >
                               Subscriber
@@ -247,8 +247,8 @@ export default function AuthPage() {
                               type="button" 
                               variant="outline"
                               className={`${field.value === "provider" 
-                                ? "bg-blue-500/20 text-blue-400 border border-blue-500/50" 
-                                : "bg-gray-800 text-gray-300 border-gray-700 hover:border-gray-600"}`}
+                                ? "bg-blue-700 text-white border border-blue-600" 
+                                : "bg-blue-500/20 text-blue-400 border-blue-500/50 hover:text-blue-300"}`}
                               onClick={() => registerForm.setValue("role", "provider")}
                             >
                               Signal Provider
