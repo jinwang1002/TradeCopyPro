@@ -760,6 +760,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     // Handle the event
     if (event.type === "checkout.session.completed") {
+      console.log("Checkout session completed event received");
       const session = event.data.object;
       
       // Extract subscription ID from success URL
@@ -767,8 +768,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const subscriptionId = url.searchParams.get("subscription_id");
       
       if (subscriptionId) {
+        console.log(`Processing subscription ID: ${subscriptionId}`);
+        
         // Update subscription status to paid
         await storage.updateSubscriptionPaymentStatus(parseInt(subscriptionId), true);
+        
+        // Ensure subscription is active
+        await storage.activateSubscription(parseInt(subscriptionId));
         
         // Create provider earning
         const subscription = await storage.getSubscription(parseInt(subscriptionId));
@@ -795,12 +801,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
     } else if (event.type === "payment_intent.succeeded") {
+      console.log("Payment intent succeeded event received");
       const paymentIntent = event.data.object;
       const subscriptionId = paymentIntent.metadata?.subscriptionId;
       
       if (subscriptionId) {
+        console.log(`Processing subscription ID: ${subscriptionId}`);
+        
         // Update subscription status to paid
         await storage.updateSubscriptionPaymentStatus(parseInt(subscriptionId), true);
+        
+        // Ensure subscription is active
+        await storage.activateSubscription(parseInt(subscriptionId));
         
         // Create provider earning
         const subscription = await storage.getSubscription(parseInt(subscriptionId));
@@ -909,6 +921,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (err: any) {
       res.status(500).json({ message: `Error creating payment intent: ${err.message}` });
+    }
+  });
+  
+  // Test endpoint to activate a subscription without payment
+  app.post("/api/activate-subscription-test", async (req, res) => {
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    try {
+      const { subscriptionId } = req.body;
+      
+      if (!subscriptionId) {
+        return res.status(400).json({ message: "Subscription ID is required" });
+      }
+      
+      const id = parseInt(subscriptionId);
+      const subscription = await storage.getSubscription(id);
+      
+      if (!subscription) {
+        return res.status(404).json({ message: "Subscription not found" });
+      }
+      
+      // Verify that the trade account belongs to the current user
+      const tradeAccount = await storage.getTradeAccount(subscription.tradeAccountId);
+      if (!tradeAccount || tradeAccount.userId !== req.user.id) {
+        return res.status(403).json({ message: "You don't have access to this subscription" });
+      }
+      
+      // Check if subscription is already paid
+      if (subscription.isPaid) {
+        return res.status(400).json({ message: "Subscription is already paid" });
+      }
+      
+      // Activate subscription without payment (for testing only)
+      await storage.updateSubscriptionPaymentStatus(id, true);
+      
+      // Activate the subscription
+      await storage.activateSubscription(id);
+      
+      // Create provider earning (similar to the webhook handler)
+      const signalAccount = await storage.getSignalAccount(subscription.signalAccountId);
+      if (signalAccount) {
+        await storage.createProviderEarning({
+          userId: signalAccount.userId,
+          signalAccountId: signalAccount.id,
+          amount: 10, // $10 per subscriber
+          type: "SUBSCRIPTION"
+        });
+      }
+
+      res.status(200).json({ message: "Subscription activated successfully" });
+    } catch (err: any) {
+      res.status(500).json({ message: `Error activating subscription: ${err.message}` });
     }
   });
 

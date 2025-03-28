@@ -83,7 +83,40 @@ export default function CheckoutPage() {
   const [subscription, setSubscription] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isPayLaterProcessing, setIsPayLaterProcessing] = useState(false);
+  const [, navigate] = useLocation();
   const { toast } = useToast();
+  
+  const handlePayLater = async () => {
+    if (!subscriptionId) return;
+    
+    setIsPayLaterProcessing(true);
+    try {
+      const res = await apiRequest("POST", "/api/activate-subscription-test", { 
+        subscriptionId 
+      });
+      
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Failed to activate subscription");
+      }
+      
+      toast({
+        title: "Subscription Activated",
+        description: "Your subscription has been activated in test mode",
+      });
+      
+      // Navigate to success page
+      navigate(`/checkout/success/${subscriptionId}`);
+    } catch (error: any) {
+      toast({
+        title: "Activation Failed",
+        description: error.message || "An error occurred",
+        variant: "destructive",
+      });
+      setIsPayLaterProcessing(false);
+    }
+  };
 
   useEffect(() => {
     if (!subscriptionId) {
@@ -208,9 +241,23 @@ export default function CheckoutPage() {
             </div>
 
             {clientSecret && (
-              <Elements stripe={stripePromise} options={{ clientSecret }}>
-                <CheckoutForm subscriptionId={subscriptionId} />
-              </Elements>
+              <>
+                <Elements stripe={stripePromise} options={{ clientSecret }}>
+                  <CheckoutForm subscriptionId={subscriptionId} />
+                </Elements>
+                
+                <div className="mt-6 border-t pt-4">
+                  <p className="mb-2 text-sm text-muted-foreground text-center">For testing purposes only:</p>
+                  <Button 
+                    variant="outline" 
+                    className="w-full" 
+                    onClick={() => handlePayLater()}
+                    disabled={isPayLaterProcessing}
+                  >
+                    {isPayLaterProcessing ? "Processing..." : "Pay Later (Test Mode)"}
+                  </Button>
+                </div>
+              </>
             )}
           </CardContent>
         </Card>
