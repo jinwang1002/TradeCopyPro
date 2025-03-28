@@ -133,7 +133,7 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
       {performanceHistory && Array.isArray(performanceHistory) && (
         <PerformanceDialog
           signalAccount={provider}
-          performanceData={performanceHistory}
+          performanceData={performanceHistory as any[]}
           open={isPerformanceDialogOpen}
           onOpenChange={setIsPerformanceDialogOpen}
         />
