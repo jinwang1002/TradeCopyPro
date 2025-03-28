@@ -74,13 +74,13 @@ export default function AuthPage() {
               <TabsList className="grid w-full grid-cols-2 mb-6 bg-[#141414] p-1 rounded-md">
                 <TabsTrigger 
                   value="login" 
-                  className={`tab-trigger-active ${activeTab === 'login' ? '' : 'text-gray-400'}`}
+                  className={`rounded py-1.5 ${activeTab === 'login' ? 'bg-blue-500 text-white' : 'text-gray-400 hover:text-gray-200'}`}
                 >
                   Login
                 </TabsTrigger>
                 <TabsTrigger 
                   value="register" 
-                  className={`tab-trigger-active ${activeTab === 'register' ? '' : 'text-gray-400'}`}
+                  className={`rounded py-1.5 ${activeTab === 'register' ? 'bg-blue-500 text-white' : 'text-gray-400 hover:text-gray-200'}`}
                 >
                   Register
                 </TabsTrigger>

@@ -794,6 +794,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         }
       }
+    } else if (event.type === "payment_intent.succeeded") {
+      const paymentIntent = event.data.object;
+      const subscriptionId = paymentIntent.metadata?.subscriptionId;
+      
+      if (subscriptionId) {
+        // Update subscription status to paid
+        await storage.updateSubscriptionPaymentStatus(parseInt(subscriptionId), true);
+        
+        // Create provider earning
+        const subscription = await storage.getSubscription(parseInt(subscriptionId));
+        if (subscription) {
+          const signalAccount = await storage.getSignalAccount(subscription.signalAccountId);
+          if (signalAccount) {
+            await storage.createProviderEarning({
+              userId: signalAccount.userId,
+              signalAccountId: signalAccount.id,
+              amount: 10, // $10 per subscriber
+              type: "SUBSCRIPTION"
+            });
+            
+            // Check if performance bonus is due (if return > 10%)
+            if (signalAccount.returnPercent >= 10) {
+              await storage.createProviderEarning({
+                userId: signalAccount.userId,
+                signalAccountId: signalAccount.id,
+                amount: 50, // $50 bonus
+                type: "PERFORMANCE_BONUS"
+              });
+            }
+          }
+        }
+      }
     }
     
     res.json({ received: true });
