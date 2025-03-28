@@ -58,7 +58,7 @@ export default function AuthPage() {
         <Card className="w-full max-w-md tempo-card">
           <CardHeader className="space-y-1 pb-2">
             <div className="flex items-center mb-3">
-              <div className="h-10 w-10 bg-gradient-to-tr from-green-500 to-green-600 rounded-md flex items-center justify-center mr-3">
+              <div className="h-10 w-10 bg-gradient-to-tr from-blue-500 to-blue-600 rounded-md flex items-center justify-center mr-3">
                 <LineChart className="h-6 w-6 text-black" />
               </div>
               <div>
@@ -99,7 +99,7 @@ export default function AuthPage() {
                             <Input 
                               placeholder="yourusername" 
                               {...field} 
-                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-green-500"
+                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-blue-500"
                             />
                           </FormControl>
                           <FormMessage className="text-red-400" />
@@ -117,7 +117,7 @@ export default function AuthPage() {
                               type="password" 
                               placeholder="••••••••" 
                               {...field} 
-                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-green-500"
+                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-blue-500"
                             />
                           </FormControl>
                           <FormMessage className="text-red-400" />
@@ -126,7 +126,7 @@ export default function AuthPage() {
                     />
                     <Button 
                       type="submit" 
-                      className="w-full bg-green-500 hover:bg-green-600 text-black" 
+                      className="w-full bg-blue-500 hover:bg-blue-600 text-black" 
                       disabled={loginMutation.isPending}
                     >
                       {loginMutation.isPending ? "Logging in..." : "Login"}
@@ -148,7 +148,7 @@ export default function AuthPage() {
                             <Input 
                               placeholder="yourusername" 
                               {...field} 
-                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-green-500"
+                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-blue-500"
                             />
                           </FormControl>
                           <FormMessage className="text-red-400" />
@@ -165,7 +165,7 @@ export default function AuthPage() {
                             <Input 
                               placeholder="Trading Joe" 
                               {...field} 
-                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-green-500"
+                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-blue-500"
                             />
                           </FormControl>
                           <FormMessage className="text-red-400" />
@@ -183,7 +183,7 @@ export default function AuthPage() {
                               type="email" 
                               placeholder="you@example.com" 
                               {...field} 
-                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-green-500"
+                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-blue-500"
                             />
                           </FormControl>
                           <FormMessage className="text-red-400" />
@@ -201,7 +201,7 @@ export default function AuthPage() {
                               type="password" 
                               placeholder="••••••••" 
                               {...field} 
-                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-green-500"
+                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-blue-500"
                             />
                           </FormControl>
                           <FormMessage className="text-red-400" />
@@ -219,7 +219,7 @@ export default function AuthPage() {
                               type="password" 
                               placeholder="••••••••" 
                               {...field} 
-                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-green-500"
+                              className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-blue-500"
                             />
                           </FormControl>
                           <FormMessage className="text-red-400" />
@@ -237,7 +237,7 @@ export default function AuthPage() {
                               type="button" 
                               variant="outline"
                               className={`${field.value === "subscriber" 
-                                ? "bg-green-500/20 text-green-400 border border-green-500/50" 
+                                ? "bg-blue-500/20 text-blue-400 border border-blue-500/50" 
                                 : "bg-gray-800 text-gray-300 border-gray-700 hover:border-gray-600"}`}
                               onClick={() => registerForm.setValue("role", "subscriber")}
                             >
@@ -247,7 +247,7 @@ export default function AuthPage() {
                               type="button" 
                               variant="outline"
                               className={`${field.value === "provider" 
-                                ? "bg-green-500/20 text-green-400 border border-green-500/50" 
+                                ? "bg-blue-500/20 text-blue-400 border border-blue-500/50" 
                                 : "bg-gray-800 text-gray-300 border-gray-700 hover:border-gray-600"}`}
                               onClick={() => registerForm.setValue("role", "provider")}
                             >
@@ -260,7 +260,7 @@ export default function AuthPage() {
                     />
                     <Button 
                       type="submit" 
-                      className="w-full bg-green-500 hover:bg-green-600 text-black" 
+                      className="w-full bg-blue-500 hover:bg-blue-600 text-black" 
                       disabled={registerMutation.isPending}
                     >
                       {registerMutation.isPending ? "Creating account..." : "Create account"}
@@ -281,12 +281,12 @@ export default function AuthPage() {
       {/* Right panel - Hero section */}
       <div className="w-full md:w-1/2 bg-black hidden md:flex flex-col justify-center items-center text-white p-8 relative overflow-hidden">
         {/* Background gradient effects */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-20 -left-10 w-64 h-64 bg-green-500/5 rounded-full filter blur-2xl"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full filter blur-3xl"></div>
+        <div className="absolute bottom-20 -left-10 w-64 h-64 bg-blue-500/5 rounded-full filter blur-2xl"></div>
         
         <div className="max-w-md text-center relative z-10">
           <h1 className="text-4xl font-bold mb-6">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-green-600">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
               Copy Trading
             </span>
             <span className="block">Made Simple</span>
@@ -298,7 +298,7 @@ export default function AuthPage() {
           <div className="grid grid-cols-1 gap-4 mb-8">
             <div className="bg-gray-900 rounded-lg p-6 border border-gray-800 text-left shadow-lg">
               <div className="flex items-start mb-4">
-                <div className="h-10 w-10 rounded-lg bg-green-500/20 flex items-center justify-center text-green-500 mr-4">
+                <div className="h-10 w-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-500 mr-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                   </svg>
@@ -310,7 +310,7 @@ export default function AuthPage() {
               </div>
               
               <div className="flex items-start">
-                <div className="h-10 w-10 rounded-lg bg-green-500/20 flex items-center justify-center text-green-500 mr-4">
+                <div className="h-10 w-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-500 mr-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                     <line x1="3" y1="9" x2="21" y2="9"></line>
