@@ -108,16 +108,6 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
               View More
             </Button>
           </Link>
-          
-          {!isProvider && (
-            <Button 
-              size="sm"
-              onClick={() => setIsSubscribeDialogOpen(true)}
-              disabled={!hasTradeAccounts}
-            >
-              Subscribe
-            </Button>
-          )}
         </div>
       </CardContent>
       

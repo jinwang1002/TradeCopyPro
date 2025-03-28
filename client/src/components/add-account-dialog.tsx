@@ -181,10 +181,10 @@ export function AddAccountDialog({ open, onOpenChange, isProvider }: AddAccountD
               name="apiKey"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>API Key/Token</FormLabel>
+                  <FormLabel>Password/API Key/Token</FormLabel>
                   <FormControl>
                     <Input 
-                      placeholder="Your account API key" 
+                      placeholder="Your account password or API key" 
                       type="password" 
                       {...field} 
                     />
