@@ -49,20 +49,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loginMutation = useMutation({
     mutationFn: async (credentials: LoginData) => {
-      const res = await apiRequest("POST", "/api/login", credentials);
-      return await res.json();
+      try {
+        const res = await apiRequest("POST", "/api/login", credentials);
+        return await res.json();
+      } catch (error) {
+        console.error("Login error:", error);
+        throw error;
+      }
     },
     onSuccess: (user: User) => {
+      // Set the user data in the query cache
       queryClient.setQueryData(["/api/user"], user);
+      
       toast({
         title: "Login successful",
         description: `Welcome back, ${user.displayName}!`,
       });
+      
+      // Force-navigate to the dashboard after a brief delay
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 100);
     },
     onError: (error: Error) => {
+      console.error("Login mutation error:", error);
       toast({
         title: "Login failed",
-        description: error.message,
+        description: error.message || "Invalid username or password",
         variant: "destructive",
       });
     },
@@ -70,22 +83,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const registerMutation = useMutation({
     mutationFn: async (data: RegisterData) => {
-      // Remove confirmPassword as it's not part of the backend schema
-      const { confirmPassword, ...credentials } = data;
-      const res = await apiRequest("POST", "/api/register", credentials);
-      return await res.json();
+      try {
+        // Remove confirmPassword as it's not part of the backend schema
+        const { confirmPassword, ...credentials } = data;
+        const res = await apiRequest("POST", "/api/register", credentials);
+        return await res.json();
+      } catch (error) {
+        console.error("Registration error:", error);
+        throw error;
+      }
     },
     onSuccess: (user: User) => {
+      // Set the user data in the query cache
       queryClient.setQueryData(["/api/user"], user);
+      
       toast({
         title: "Registration successful",
         description: `Welcome to TradeRiser, ${user.displayName}!`,
       });
+      
+      // Force-navigate to the dashboard after a brief delay
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 100);
     },
     onError: (error: Error) => {
+      console.error("Registration mutation error:", error);
       toast({
         title: "Registration failed",
-        description: error.message,
+        description: error.message || "An unexpected error occurred",
         variant: "destructive",
       });
     },
@@ -96,12 +122,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await apiRequest("POST", "/api/logout");
     },
     onSuccess: () => {
+      // First, reset the user data to null
       queryClient.setQueryData(["/api/user"], null);
-      queryClient.invalidateQueries();
+      
+      // Then, clear the query cache entirely to ensure no stale data remains
+      queryClient.clear();
+      
       toast({
         title: "Logged out",
         description: "You have been successfully logged out",
       });
+      
+      // Force-navigate to the home page after a brief delay
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 100);
     },
     onError: (error: Error) => {
       toast({
