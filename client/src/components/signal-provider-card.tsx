@@ -56,47 +56,61 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
   const isProvider = userData && (userData as any)?.role === 'provider';
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden bg-black border-gray-800 hover:border-gray-700 transition-all">
       <CardContent className="p-4">
         <div className="flex items-center mb-3">
-          <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center text-sm font-medium">
+          <div className="h-12 w-12 rounded-full border border-gray-700 bg-gray-900 flex items-center justify-center text-sm font-medium">
             {providerDetails ? getInitials((providerDetails as any)?.displayName || '') : 'SP'}
           </div>
           <div className="ml-3">
-            <h3 className="font-medium">{(providerDetails as any)?.displayName || 'Signal Provider'}</h3>
-            <p className="text-xs text-muted-foreground">Signal Provider</p>
+            <h3 className="font-medium text-white">{(providerDetails as any)?.displayName || 'Signal Provider'}</h3>
+            <p className="text-xs text-gray-400">{provider.nickname}</p>
           </div>
-          {rank && (
-            <div className="ml-auto">
-              <Badge variant="outline" className="bg-purple-500/20 text-purple-500 border-purple-500/50">
+          <div className="flex items-center ml-auto">
+            <div className="flex items-center mr-2">
+              <div className={`text-${provider.returnPercent >= 0 ? 'green' : 'red'}-500 font-semibold flex items-center`}>
+                {provider.returnPercent >= 0 ? '+' : ''}{provider.returnPercent}%
+              </div>
+            </div>
+            {rank && (
+              <Badge variant="outline" className="bg-amber-950/30 text-amber-400 border-amber-800">
                 Top {rank}
               </Badge>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         
-        <h4 className="text-sm font-medium mb-1">{provider.nickname}</h4>
-        <p className="text-xs text-muted-foreground mb-3">{provider.description}</p>
+        <p className="text-sm text-gray-300 mb-4">{provider.description}</p>
         
-        <div className="grid grid-cols-3 gap-2 mb-3">
-          <div className="bg-accent rounded p-2 text-center">
-            <p className="text-xs text-muted-foreground">Return</p>
-            <p className="text-green-500 font-medium">+{provider.returnPercent}%</p>
+        <div className="grid grid-cols-3 gap-4 mb-4">
+          <div className="bg-gray-900 p-3 rounded-lg">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs text-gray-400">Win Rate</span>
+              <div className="h-3 w-3 text-gray-400">📊</div>
+            </div>
+            <p className="text-lg font-semibold text-white">{provider.winRate}%</p>
           </div>
-          <div className="bg-accent rounded p-2 text-center">
-            <p className="text-xs text-muted-foreground">Win Rate</p>
-            <p className="font-medium">{provider.winRate}%</p>
+          <div className="bg-gray-900 p-3 rounded-lg">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs text-gray-400">Drawdown</span>
+              <div className="h-3 w-3 text-gray-400">📉</div>
+            </div>
+            <p className="text-lg font-semibold text-red-500">{provider.maxDrawdown}%</p>
           </div>
-          <div className="bg-accent rounded p-2 text-center">
-            <p className="text-xs text-muted-foreground">Drawdown</p>
-            <p className="text-red-500 font-medium">{provider.maxDrawdown}%</p>
+          <div className="bg-gray-900 p-3 rounded-lg">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs text-gray-400">Trades</span>
+              <div className="h-3 w-3 text-gray-400">🔄</div>
+            </div>
+            <p className="text-lg font-semibold text-white">500+</p>
           </div>
         </div>
         
         <div className={`flex items-center ${isProvider ? 'justify-around' : 'justify-between'}`}>
           <Button 
-            variant="secondary" 
+            variant="ghost" 
             size="sm"
+            className="text-gray-300 hover:text-white hover:bg-gray-900"
             onClick={() => setIsPerformanceDialogOpen(true)}
           >
             <LineChart className="mr-1 h-4 w-4" />
@@ -104,7 +118,11 @@ export function SignalProviderCard({ provider, rank, hasTradeAccounts = false }:
           </Button>
           
           <Link href={`/providers/${provider.id}`}>
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-green-500 hover:text-green-400 hover:bg-gray-900"
+            >
               View More
             </Button>
           </Link>

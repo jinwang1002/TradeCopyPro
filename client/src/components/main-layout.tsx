@@ -83,84 +83,79 @@ export function MainLayout({ children }: MainLayoutProps) {
     // Check if we're on the home page
     if (location === "/") {
       return (
-        <div className="min-h-screen bg-background flex flex-col">
-          <div className="flex h-16 border-b items-center px-4">
+        <div className="min-h-screen bg-black flex flex-col">
+          <div className="flex h-16 border-b border-gray-800 items-center px-4">
             <Link href="/">
               <div className="flex items-center cursor-pointer">
-                <div className="h-8 w-8 bg-primary rounded-md flex items-center justify-center">
-                  <LineChart className="h-5 w-5 text-white" />
-                </div>
-                <h1 className="font-heading font-bold text-lg ml-2">TradeRiser</h1>
+                <span className="text-green-500 font-bold text-xl">TradeRiser</span>
               </div>
             </Link>
             <div className="ml-auto flex gap-2">
               <Link href="/auth">
-                <Button variant="outline" size="sm">Log In</Button>
+                <Button variant="outline" size="sm" className="text-gray-300 border-gray-700 hover:bg-gray-900 hover:text-white">
+                  Log In
+                </Button>
               </Link>
               <Link href="/auth">
-                <Button size="sm">Sign Up</Button>
+                <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white">
+                  Sign Up
+                </Button>
               </Link>
             </div>
           </div>
-          <div className="flex-1">{children}</div>
+          <div className="flex-1 bg-black">{children}</div>
         </div>
       );
     }
     
     // For other non-authenticated pages
     return (
-      <div className="min-h-screen bg-background flex flex-col">
-        <div className="flex h-16 border-b items-center px-4">
-          <Skeleton className="h-10 w-40" />
+      <div className="min-h-screen bg-black flex flex-col">
+        <div className="flex h-16 border-b border-gray-800 items-center px-4">
+          <Skeleton className="h-10 w-40 bg-gray-800" />
           <div className="ml-auto">
-            <Skeleton className="h-10 w-10 rounded-full" />
+            <Skeleton className="h-10 w-10 rounded-full bg-gray-800" />
           </div>
         </div>
         <div className="flex-1 flex">
-          <div className="hidden md:flex w-64 flex-col border-r p-4">
+          <div className="hidden md:flex w-64 flex-col border-r border-gray-800 p-4">
             {Array(5)
               .fill(0)
               .map((_, i) => (
-                <Skeleton key={i} className="h-10 w-full mb-2" />
+                <Skeleton key={i} className="h-10 w-full mb-2 bg-gray-800" />
               ))}
           </div>
-          <div className="flex-1 p-4">{children}</div>
+          <div className="flex-1 p-4 bg-black">{children}</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-black flex flex-col">
       {/* Mobile header */}
-      <div className="md:hidden flex h-16 border-b items-center px-4">
+      <div className="md:hidden flex h-16 border-b border-gray-800 items-center px-4">
         <Link href="/">
           <div className="flex items-center cursor-pointer">
-            <div className="h-8 w-8 bg-primary rounded-md flex items-center justify-center">
-              <LineChart className="h-5 w-5 text-white" />
-            </div>
-            <h1 className="font-heading font-bold text-lg ml-2">TradeRiser</h1>
+            <span className="text-green-500 font-bold text-xl">TradeRiser</span>
           </div>
         </Link>
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="ml-auto">
+            <Button variant="ghost" size="icon" className="ml-auto text-gray-300">
               <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="p-0">
-            <div className="flex flex-col h-full bg-background">
-              <div className="flex items-center justify-between p-4 border-b">
+          <SheetContent side="left" className="p-0 border-r border-gray-800 bg-black">
+            <div className="flex flex-col h-full">
+              <div className="flex items-center justify-between p-4 border-b border-gray-800">
                 <Link href="/" onClick={() => setIsOpen(false)}>
                   <div className="flex items-center cursor-pointer">
-                    <div className="h-8 w-8 bg-primary rounded-md flex items-center justify-center">
-                      <LineChart className="h-5 w-5 text-white" />
-                    </div>
-                    <h1 className="font-heading font-bold text-lg ml-2">TradeRiser</h1>
+                    <span className="text-green-500 font-bold text-xl">TradeRiser</span>
                   </div>
                 </Link>
                 <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
-                  <X className="h-5 w-5" />
+                  <X className="h-5 w-5 text-gray-300" />
                 </Button>
               </div>
               
@@ -170,8 +165,11 @@ export function MainLayout({ children }: MainLayoutProps) {
                     <li key={item.name}>
                       <Link href={item.href}>
                         <Button
-                          variant={item.active ? "default" : "ghost"}
-                          className="w-full justify-start"
+                          variant="ghost"
+                          className={cn(
+                            "w-full justify-start text-gray-300",
+                            item.active ? "bg-gray-900 text-white" : "hover:bg-gray-900 hover:text-white"
+                          )}
                           onClick={() => setIsOpen(false)}
                         >
                           <item.icon className="mr-3 h-5 w-5" />
@@ -183,19 +181,19 @@ export function MainLayout({ children }: MainLayoutProps) {
                 </ul>
               </nav>
               
-              <div className="border-t p-4">
+              <div className="border-t border-gray-800 p-4">
                 <div className="flex items-center px-2 py-2">
-                  <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-sm font-medium text-white">
+                  <div className="h-8 w-8 rounded-full bg-gray-800 flex items-center justify-center text-sm font-medium text-white">
                     {user.displayName.substring(0, 2).toUpperCase()}
                   </div>
                   <div className="ml-3">
-                    <p className="text-sm font-medium">{user.displayName}</p>
-                    <p className="text-xs text-muted-foreground capitalize">{user.role}</p>
+                    <p className="text-sm font-medium text-white">{user.displayName}</p>
+                    <p className="text-xs text-gray-400 capitalize">{user.role}</p>
                   </div>
                 </div>
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-start mt-2 text-muted-foreground hover:text-foreground hover:bg-accent"
+                  className="w-full justify-start mt-2 text-gray-400 hover:text-white hover:bg-gray-900"
                   onClick={handleLogout}
                 >
                   <LogOut className="mr-2 h-4 w-4" />
@@ -209,27 +207,28 @@ export function MainLayout({ children }: MainLayoutProps) {
       
       {/* Desktop sidebar */}
       <div className="flex-1 flex">
-        <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 bg-background border-r z-10">
+        <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 bg-black border-r border-gray-800 z-10">
           <div className="flex-1 flex flex-col min-h-0">
-            <div className="flex items-center h-16 px-4 border-b">
+            <div className="flex items-center h-16 px-4 border-b border-gray-800">
               <Link href="/">
                 <div className="flex items-center cursor-pointer">
-                  <div className="h-10 w-10 bg-primary rounded-md flex items-center justify-center">
-                    <LineChart className="h-6 w-6 text-white" />
-                  </div>
-                  <h1 className="font-heading font-bold text-xl ml-3">TradeRiser</h1>
+                  <span className="text-green-500 font-bold text-xl">TradeRiser</span>
                 </div>
               </Link>
             </div>
             
             <nav className="flex-1 p-4">
+              <p className="text-xs font-medium text-gray-400 mb-2 uppercase">Menu</p>
               <ul className="space-y-1">
                 {navigation.map((item) => (
                   <li key={item.name}>
                     <Link href={item.href}>
                       <Button
-                        variant={item.active ? "default" : "ghost"}
-                        className="w-full justify-start"
+                        variant="ghost"
+                        className={cn(
+                          "w-full justify-start text-gray-300",
+                          item.active ? "bg-gray-900 text-white" : "hover:bg-gray-900 hover:text-white"
+                        )}
                       >
                         <item.icon className="mr-3 h-5 w-5" />
                         <span>{item.name}</span>
@@ -240,19 +239,19 @@ export function MainLayout({ children }: MainLayoutProps) {
               </ul>
             </nav>
             
-            <div className="border-t pt-4 mt-4 px-4 pb-4">
+            <div className="border-t border-gray-800 pt-4 mt-4 px-4 pb-4">
               <div className="flex items-center px-2 py-2">
-                <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-sm font-medium text-white">
+                <div className="h-8 w-8 rounded-full bg-gray-800 flex items-center justify-center text-sm font-medium text-white">
                   {user.displayName.substring(0, 2).toUpperCase()}
                 </div>
                 <div className="ml-3">
-                  <p className="text-sm font-medium">{user.displayName}</p>
-                  <p className="text-xs text-muted-foreground capitalize">{user.role}</p>
+                  <p className="text-sm font-medium text-white">{user.displayName}</p>
+                  <p className="text-xs text-gray-400 capitalize">{user.role}</p>
                 </div>
               </div>
               <Button 
                 variant="ghost" 
-                className="w-full justify-start mt-2 text-muted-foreground hover:text-foreground hover:bg-accent"
+                className="w-full justify-start mt-2 text-gray-400 hover:text-white hover:bg-gray-900"
                 onClick={handleLogout}
               >
                 <LogOut className="mr-2 h-4 w-4" />
@@ -263,7 +262,7 @@ export function MainLayout({ children }: MainLayoutProps) {
         </aside>
         
         {/* Main content */}
-        <main className={cn("flex-1", { "md:ml-64": user })}>
+        <main className={cn("flex-1 bg-black", { "md:ml-64": user })}>
           {children}
         </main>
       </div>
